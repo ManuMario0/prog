@@ -1,0 +1,64 @@
+asyntax.cmo : \
+    asyntax.cmi
+asyntax.cmx : \
+    asyntax.cmi
+asyntax.cmi :
+builtins.cmo : \
+    lisp.cmi \
+    environment.cmi \
+    asyntax.cmi \
+    builtins.cmi
+builtins.cmx : \
+    lisp.cmx \
+    environment.cmx \
+    asyntax.cmx \
+    builtins.cmi
+builtins.cmi : \
+    environment.cmi
+environment.cmo : \
+    asyntax.cmi \
+    environment.cmi
+environment.cmx : \
+    asyntax.cmx \
+    environment.cmi
+environment.cmi : \
+    asyntax.cmi
+lexer.cmo : \
+    parser.cmi
+lexer.cmx : \
+    parser.cmx
+lisp.cmo : \
+    environment.cmi \
+    asyntax.cmi \
+    lisp.cmi
+lisp.cmx : \
+    environment.cmx \
+    asyntax.cmx \
+    lisp.cmi
+lisp.cmi : \
+    asyntax.cmi
+main.cmo : \
+    parser.cmi \
+    lisp.cmi \
+    lexer.cmo \
+    environment.cmi \
+    builtins.cmi \
+    asyntax.cmi \
+    main.cmi
+main.cmx : \
+    parser.cmx \
+    lisp.cmx \
+    lexer.cmx \
+    environment.cmx \
+    builtins.cmx \
+    asyntax.cmx \
+    main.cmi
+main.cmi :
+parser.cmo : \
+    asyntax.cmi \
+    parser.cmi
+parser.cmx : \
+    asyntax.cmx \
+    parser.cmi
+parser.cmi : \
+    asyntax.cmi
