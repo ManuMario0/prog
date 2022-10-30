@@ -1,0 +1,17 @@
+# variable attribution test
+x = 1
+y = 2.
+x
+y
+
+# variable value change
+z = 3
+x = z + x
+x
+z
+
+# variable type change
+y = 3
+x = y + 1
+x
+y

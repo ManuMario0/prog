@@ -1,0 +1,54 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Emmanuel MÉRA}
+\title{Expression compiler}
+\begin{document}
+\maketitle
+\section{Introduction}
+The goal of the project was to build a small compiler which can compute and print expressions like :
+\[
+	(4.+.5.)*.45.3+2.
+\]
+To be more specific, our compiler should be able to recognize all the standard operations (+, -, *, /, \%) with the priorities and also be able to manage with there floating point counter part (+., -., *., /.). It should also handle type casting of the form float(.4) and int(3).
+
+\section{Specification}
+The implementation support more than the necessary functionalities :
+\begin{itemize}
+	\item float division : "exp/.exp"
+	\item factorial : "exp!" and this function has the higher priority
+	\item power : "exp**exp"
+	\item variables assignation : "var\_ name = exp"
+\end{itemize}
+The variables were implemented in a way that they can be reassignated to a new value but also to change of type. This is also completely possible to write :\\
+x = exp\\
+y = exp\\
+x = x + y
+
+\section{Lexical analyser}
+The lexical analyser appears to be one of the easiest part to build. The way I did it was :
+\begin{itemize}
+	\item Transform the string into a list of char
+	\item Then parse the list while detecting lexem
+\end{itemize}
+I've also decided to make my compiler a bit more flexible so that he can handle the case where there are different lines of input to be computed.
+
+\section{Syntactic analyser}
+This is the trickiest bit. I had to go through several design consideration to be able to handle every cases.
+To begin with, I had to deal with the fact that the operators come between the two operands. This makes the thing already a bit tricky because we have to keep track of the last expression we've been through. To do so, I just passed this expression as a parameter for the next function.
+Next, I had to deal with priorities. To do so, I used a flag which keeps track of the priority. The higher the flag is, the higher is the priority. Quite simple. (I might have struggled a bit to don't mess the subtraction because, by default, my algorithm puts the brace on the right !).
+Then, I had to deal with the closing brace. I didn't want to go too far when analysing this is why I added a flag when returning to tell the other functions : "hey, don't go further, I hit a closing brace".
+Finally, I had to deal with this horrible rule that the syntax for - was a bit tricky. I just added a small flag to make sure there is a brace after it.
+
+\section{Optimization}
+I have implemented a small bit of optimization. When I hit a minus sign, I try to distribute it and see if this produces a smaller expression.
+
+\section{Traduction}
+Now that I've got my syntactic tree, I just have to convert it in assembly language ! (the fun part !).
+Because of the way floating points are implemented, I decided to put all variables in actual variables in the code so that I can simply move them (it's actually almost as efficient as putting the variables directly in the code).
+Every time I want to compute something, I get the parameters from rax and get put the results back in rax.
+
+\end{document}

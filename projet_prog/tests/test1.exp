@@ -1,0 +1,28 @@
+# type detection tests
+1+2
+1.+.2.
+
+# int tests
+## priority tests
+3+4*5!--6 # = 489
+(3+4)*5!--6 # = 846
+4*3**2 # = 36
+## operation order tests
+5-4-3-2-1 # -5
+-(-2)
+-(float(1+2))
+## division and mod tests
+5/2
+-5/2
+5%2
+-5%2
+5%-2
+
+# float tests
+## priority tests
+3.+.4.*.5./.6.-.8. # = -1.6666666667
+(2.+.3.)*.4. # = 20.
+## operation order tests
+5.-.4.-.3.-.2.-.1.
+-(-2.)
+-(int(1.+.2.))
