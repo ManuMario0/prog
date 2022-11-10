@@ -17,8 +17,8 @@ let main f =
 	let l = anal_synt (parse f) d 1 in
     Hashtbl.clear d;
 	let text, data = translate l 0 0 d in
-	let prog = {text=((inline ("\t.globl _main"
-                                ^ "\n_main:"
+	let prog = {text=((inline ("\t.globl main"
+                                ^ "\nmain:"
                                 ^ "\n\tpushq %rbp\n"))
                         ++text
                         ++(inline ("\tpopq %rbp\n"
@@ -27,14 +27,14 @@ let main f =
                                 ^ "\tpushq %rbp\n"
                                 ^ "\tmovq $0, %rax\n"
                                 ^ "\tleaq msg_i(%rip), %rdi\n"
-                                ^ "\tcallq _printf\n"
+                                ^ "\tcallq printf\n"
                                 ^ "\tpopq %rbp\n"
                                 ^ "\tret\n\n"
                                 ^ "print_f:\n"
                                 ^ "\tpushq %rbp\n"
                                 ^ "\tmovq $1, %rax\n"
                                 ^ "\tleaq msg_f(%rip), %rdi\n"
-                                ^ "\tcallq _printf\n"
+                                ^ "\tcallq printf\n"
                                 ^ "\tpopq %rbp\n"
                                 ^ "\tret\n\n"
                                 ^ "fact:\n"
